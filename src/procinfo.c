@@ -12,7 +12,6 @@ int main(int c, char **v) {
 	snprintf(cmdline_path, sizeof(cmdline_path), "/proc/%s/cmdline", v[1]);
 
 		FILE *fstat = fopen(stat_path, "r");
-	FILE *fstat = fopen(stat_path, "r");
 	if (!fstat) {
 		DIE("opening stat file");
 	}
@@ -20,11 +19,9 @@ int main(int c, char **v) {
 	char comm[256], state;
 	unsigned long utime, stime;
 	if (fscanf(fstat, "%d %255s %c %d", &pid, comm, &state, &ppid) != 4) {
-	if (fscanf(fstat, "%d %255s %c %d", &pid, comm, &state, &ppid) != 4) {
 		fclose(fstat);
 		DIE_MSG("parsing stat file");
 	}
-	for (int i = 0; i < 10; ++i) {
 	for (int i = 0; i < 10; ++i) {
 		fscanf(fstat, "%*s");
 	}
@@ -34,7 +31,6 @@ int main(int c, char **v) {
 	}
 	fclose(fstat);
 
-	FILE *fstatus = fopen(status_path, "r");
 	FILE *fstatus = fopen(status_path, "r");
 	if (!fstatus) {
 		DIE("opening status file");
@@ -49,10 +45,9 @@ int main(int c, char **v) {
 	fclose(fstatus);
 
 	FILE *fcmd = fopen(cmdline_path, "r");
-	FILE *fcmd = fopen(cmdline_path, "r");
 	if (!fcmd) {
 		DIE("opening cmdline file");
-}
+	}
 	char cmdline[4096];
 	size_t n = fread(cmdline, 1, sizeof(cmdline) - 1, fcmd);
 	fclose(fcmd);
@@ -65,7 +60,6 @@ int main(int c, char **v) {
 		}
 	}
 
-	long clk_tck = sysconf(_SC_CLK_TCK);
 	long clk_tck = sysconf(_SC_CLK_TCK);
 	double cpu_time = (utime + stime) / (double)clk_tck;
 
